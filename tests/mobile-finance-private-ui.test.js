@@ -17,3 +17,9 @@ test('Selected private client exposes escaped internal notes beneath the client 
  assert.match(app,/data-private-client-notes \$\{state\.privateNotesOpen\?'open':''\}/);
  assert.match(app,/state\.privateNotesOpen=e\.target\.open/);
 });
+
+test('New private clients start at zero without exposing an opening balance field',()=>{
+ assert.doesNotMatch(app,/field\('opening_balance'/);
+ assert.match(app,/p_opening_balance_cents:0/);
+ assert.match(app,/client\.opening_balance_cents/,'Existing stored opening balances remain supported');
+});
